@@ -1,3 +1,4 @@
+#P12 2.1-4
 def bin_add(a: list, b: list) -> list:
     i = len(a) - 1
     c = [0] * (i + 2)
