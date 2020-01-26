@@ -41,8 +41,8 @@ def max_crossing_sub(l: list, left: int, right: int):
 
 
 def find_max_sub(l: list):
-    return max_sub(a, 0, len(a) - 1)
-    
+    return max_sub(l, 0, len(l) - 1)
+
 
 a = [5, -1, 5, 2, 4, -1, 3]
 print(find_max_sub(a))
