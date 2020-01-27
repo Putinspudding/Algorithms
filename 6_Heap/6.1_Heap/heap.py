@@ -4,9 +4,9 @@ import math
 
 # 6.1堆类定义
 class heap:
-    def __init__(self, A: list):
-        self.heap = copy.deepcopy(A)
-        self.size = len(A) - 1
+    def __init__(self, B: list):
+        self.heap = copy.deepcopy(B)
+        self.size = len(B) - 1
 
     def left(self, i: int):
         return 2 * i
@@ -45,6 +45,18 @@ def build_max_heap(A: heap):
         max_heapify(A, i)
 
 
+# 6.4堆排序
+def heapsort(A: heap):
+    build_max_heap(A)
+    for i in range(A.size, 1, -1):
+        temp = A.heap[1]
+        A.heap[1] = A.heap[i]
+        A.heap[i] = temp
+        A.size = A.size - 1
+        max_heapify(A, 1)
+
+
+
 a = [0, 16, 4, 10, 14, 7, 9, 3, 2, 8, 1]
 b = heap(a)
 max_heapify(b, 2)
@@ -52,4 +64,6 @@ print(b.heap)
 c = [0, 4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
 d = heap(c)
 build_max_heap(d)
+print(d.heap)
+heapsort(d)
 print(d.heap)
