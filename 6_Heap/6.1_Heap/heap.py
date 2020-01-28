@@ -56,6 +56,42 @@ def heapsort(A: heap):
         max_heapify(A, 1)
 
 
+# 6.5优先队列
+# 此时的堆都是最大堆
+# 查找最大值
+def heap_maximun(A: heap):
+    return A.heap[1]
+
+
+# 对最大值进行取出操作
+def pop(A: heap):
+    max = A.heap[1]
+    A.heap[1] = A.heap[A.size]
+    A.heap[A.size] = max
+    A.size = A.size - 1
+    max_heapify(A, 1)
+    return max
+
+#对某键值进行增加操作
+def add_key_value(A: heap, num: int, value: int):
+    if A.heap[num] < value:
+        A.heap[num] = value
+        while A.heap[num] > A.heap[A.parent(num)]:
+            temp = A.heap[num]
+            A.heap[num] = A.heap[A.parent(num)]
+            A.heap[A.parent(num)] = temp
+            num = A.parent(num)
+            if num == 1:
+                break
+
+
+#对堆进行插入元素
+def insert(A:heap,element:int):
+    A.size = A.size+1
+    A.heap.append(-math.inf)
+    add_key_value(A,A.size,element)
+
+
 
 a = [0, 16, 4, 10, 14, 7, 9, 3, 2, 8, 1]
 b = heap(a)
@@ -65,5 +101,13 @@ c = [0, 4, 1, 3, 2, 16, 9, 10, 14, 8, 7]
 d = heap(c)
 build_max_heap(d)
 print(d.heap)
-heapsort(d)
+add_key_value(d, 9, 15)
 print(d.heap)
+# heapsort(d)
+# print(d.heap)
+print(pop(d))
+print(d.heap)
+f = [0, 16, 14, 10, 8, 7, 9, 3, 2, 4, 1]
+g = heap(f)
+insert(g,20)
+print(g.heap)
