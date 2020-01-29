@@ -33,9 +33,7 @@ def max_heapify(A: heap, i: int):
         if A.heap[right] > A.heap[largest]:
             largest = right
     if not largest == i:
-        temp = A.heap[largest]
-        A.heap[largest] = A.heap[i]
-        A.heap[i] = temp
+        A.heap[largest], A.heap[i] = A.heap[i], A.heap[largest]
         max_heapify(A, largest)
 
 
@@ -49,9 +47,7 @@ def build_max_heap(A: heap):
 def heapsort(A: heap):
     build_max_heap(A)
     for i in range(A.size, 1, -1):
-        temp = A.heap[1]
-        A.heap[1] = A.heap[i]
-        A.heap[i] = temp
+        A.heap[1], A.heap[i] = A.heap[i], A.heap[1]
         A.size = A.size - 1
         max_heapify(A, 1)
 
@@ -72,25 +68,23 @@ def pop(A: heap):
     max_heapify(A, 1)
     return max
 
-#对某键值进行增加操作
+
+# 对某键值进行增加操作
 def add_key_value(A: heap, num: int, value: int):
     if A.heap[num] < value:
         A.heap[num] = value
         while A.heap[num] > A.heap[A.parent(num)]:
-            temp = A.heap[num]
-            A.heap[num] = A.heap[A.parent(num)]
-            A.heap[A.parent(num)] = temp
+            A.heap[num], A.heap[A.parent(num)] = A.heap[A.parent(num)], A.heap[num]
             num = A.parent(num)
             if num == 1:
                 break
 
 
-#对堆进行插入元素
-def insert(A:heap,element:int):
-    A.size = A.size+1
+# 对堆进行插入元素
+def insert(A: heap, element: int):
+    A.size = A.size + 1
     A.heap.append(-math.inf)
-    add_key_value(A,A.size,element)
-
+    add_key_value(A, A.size, element)
 
 
 a = [0, 16, 4, 10, 14, 7, 9, 3, 2, 8, 1]
@@ -109,5 +103,5 @@ print(pop(d))
 print(d.heap)
 f = [0, 16, 14, 10, 8, 7, 9, 3, 2, 4, 1]
 g = heap(f)
-insert(g,20)
+insert(g, 20)
 print(g.heap)
